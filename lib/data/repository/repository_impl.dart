@@ -11,9 +11,9 @@ class RepositoryImpl implements Repository {
   RepositoryImpl(this._localDataSource);
 
   @override
-  Future<Either<Failure, List<People>>> fetchPeoples() async {
+  Either<Failure, List<People>> fetchPeoples() {
     try {
-      final peoples = await _localDataSource.fetchPeoples();
+      final peoples = _localDataSource.fetchPeoples();
       return Right(peoples.map((e) => e.toDomain()).toList());
     } catch (e) {
       return Left(Failure(e.toString()));
@@ -21,9 +21,9 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  Future<Either<Failure, People>> fetchPeople(String key) async {
+  Either<Failure, People> fetchPeople(String key) {
     try {
-      final people = await _localDataSource.fetchPeople(key);
+      final people = _localDataSource.fetchPeople(key);
       return Right(people.toDomain());
     } catch (e) {
       return Left(Failure(e.toString()));

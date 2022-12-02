@@ -3,9 +3,9 @@ import 'package:hive_test/domain/model/failure.dart';
 import 'package:hive_test/domain/model/people.dart';
 
 abstract class Repository {
-  Future<Either<Failure, List<People>>> fetchPeoples();
+  Either<Failure, List<People>> fetchPeoples();
 
-  Future<Either<Failure, People>> fetchPeople(String key);
+  Either<Failure, People> fetchPeople(String key);
 
   Future<Either<Failure, void>> deletePeoples();
 

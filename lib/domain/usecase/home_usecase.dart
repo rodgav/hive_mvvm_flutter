@@ -5,22 +5,20 @@ import 'package:hive_test/domain/repository/repository.dart';
 import 'package:hive_test/domain/usecase/base_usecase.dart';
 
 class HomeUseCase
-    implements
-        BaseUseCase<void, List<People>>,
-        HomeUseCasePut<People, void> {
+    implements BaseUseCase<People, void>, HomeUseCasePut<void, List<People>> {
   final Repository _repository;
 
   HomeUseCase(this._repository);
 
   @override
-  Future<Either<Failure, List<People>>> execute(void input) =>
-      _repository.fetchPeoples();
+  Future<Either<Failure, void>> execute(People input) =>
+      _repository.putPeople(input);
 
   @override
-  Future<Either<Failure, void>> putPeople(People input) =>
-      _repository.putPeople(input);
+  Either<Failure, List<People>> fetchPeoples(void input) =>
+      _repository.fetchPeoples();
 }
 
 abstract class HomeUseCasePut<In, Out> {
-  Future<Either<Failure, Out>> putPeople(In input);
+  Either<Failure, Out> fetchPeoples(In input);
 }

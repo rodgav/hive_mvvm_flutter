@@ -34,7 +34,8 @@ class HomeViewModel extends BaseViewModel
       _peoplesStreCtrl.stream.map((peoples) => peoples);
 
   @override
-  Stream<bool> get uuidEnabledOutput => _uuidEnabledStreCtrl.stream.map((enabled) => enabled);
+  Stream<bool> get uuidEnabledOutput =>
+      _uuidEnabledStreCtrl.stream.map((enabled) => enabled);
 
   @override
   showId(Function(String uuid) setUuidText) {
@@ -44,14 +45,14 @@ class HomeViewModel extends BaseViewModel
 
   @override
   fetchPeople() async {
-    (await _homeUseCase.execute(null))
+    (_homeUseCase.fetchPeoples(null))
         .fold((l) => debugPrint(l.error), (r) => peoplesInput.add(r));
   }
 
   @override
   putPeople(String uuid, String name, String old,
       Function(String uuid) setUuidText) async {
-    (await _homeUseCase.putPeople(People(uuid, name, old)))
+    (await _homeUseCase.execute(People(uuid, name, old)))
         .fold((l) => debugPrint(l.error), (r) {
       showId(setUuidText);
       fetchPeople();
